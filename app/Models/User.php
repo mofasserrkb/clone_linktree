@@ -18,9 +18,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
+        'background_color',
+        'text_color'
     ];
 
     /**
@@ -33,6 +35,17 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function links()
+    {
+        return $this->hasMany(Link::class);
+    }
+
+    public function visits()
+    {
+        return $this->hasManyThrough(Visit::class, Link::class);
+    }
+
+     // email verification property is not needed for this project
     /**
      * The attributes that should be cast.
      *
