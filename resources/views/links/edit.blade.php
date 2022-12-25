@@ -35,6 +35,11 @@
                           @endif
 
                         <button type="submit" class="btn btn-primary">Update Link</button>
+                        <button type="button" class="btn btn-secondary" onclick="event.preventDefault();document.getElementById('delete-form').submit();">Delete Link</button>
+                      </form>
+                      <form id="delete-form" action="{{url('/dashboard/links/'. $link->id )}}" method="post">
+                        @csrf
+                        @method('DELETE')
                       </form>
                 </div>
             </div>
