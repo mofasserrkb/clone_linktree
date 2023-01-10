@@ -27,8 +27,14 @@
                           <tr>
                             <td>{{$link->name}}</td>
                             <td> <a href="{{$link->link}}">{{$link->link}} </a> </td>
-                            <td>0</td>
-                            <td>Date</td>
+                            <td>{{$link->visits_count}}</td>
+                            @php
+
+                              // pull out latest_visit from links visits relationship
+                            //  $latest_visit =$link->visits()->latest();
+                             //   dd($link);
+                            @endphp
+                            <td>{{$link->latest_visit ? $link->latest_visit->created_at->format('M j Y -H:ia') : 'N/A'}}</td>
                             <td> <a href="{{url('/dashboard/links/'. $link->id )}}"> Edit </a></td>
                           </tr>
                           @endforeach

@@ -17,6 +17,7 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.3.slim.js" integrity="sha256-DKU1CmJ8kBuEwumaLuh9Tl/6ZB6jzGOBV/5YpNE2BWc=" crossorigin="anonymous"></script>
     </head>
     <body class="font-sans antialiased" style="background-color:{{$user->background_color}} ">
 
@@ -28,7 +29,7 @@
 
                             @foreach ($links as $link)
                             <div class="link">
-                         <a href="{{$link->link}}" class="user-link d-block p-4 mb-4 rounded h3 text-center"
+                         <a href="{{$link->link}}" data-link-id="{{$link->id}}" class="user-link d-block p-4 mb-4 rounded h3 text-center"
                             target="_blank"
                             rel="nofollow"
                             style="border: 2px solid {{$user->text_color}}; color:{{$user->text_color}}"
@@ -42,5 +43,21 @@
             </div>
         </div>
     </div>
+    <script>
+
+    $('.user-link').click(function(e){
+    var linkId=$(this).data('link-id');
+    var linkUrl=$(this).attr('href');
+//store the visit asynchronously without interrupting the link opening
+
+
+  axios.post('http://localhost/clonelinktree/public/visit/'+linkId,{
+      link:linkUrl
+  })
+  .then(response=>console.log('response',response))
+  .catch(error=>console.error('error', error))
+});
+
+    </script>
     </body>
 </html>

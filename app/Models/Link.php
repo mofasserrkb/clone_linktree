@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\Visit;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Link extends Model
 {
@@ -19,4 +21,9 @@ class Link extends Model
     {
         return $this->hasMany(Visit::class);
     }
+    public function latest_visit()
+    {
+        return $this->hasOne(Visit::class)->latest();
+    }
+
 }

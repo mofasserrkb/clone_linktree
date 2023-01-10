@@ -10,8 +10,11 @@ class LinkController extends Controller
 {
     //
     public function index(){
-        $links= Link::where('user_id', Auth::id())->get();
+       // $links=Auth::user()->links()->withCount('visits')->get();
+       //here 'visits' is visit relationship which creates new attribute in our data
+        $links= Link::where('user_id', Auth::id())->withCount('visits')->with('latest_visit')->get();
        // dd($links);
+      // return $links;
         return view('links.index',['links'=>$links]);
     }
     public function create(){
